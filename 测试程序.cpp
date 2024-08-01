@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
-#include"list.hpp"
+#include"sllist.hpp"
+#include"dllist.hpp"
 #define _for(i,a,b) for(int i = a; i <= b; i++)
 #define _rfor(i,a,b) for(int i=a; i>=b; i--)
 using namespace std;
@@ -15,7 +16,7 @@ int main()
         cin>>a;
         l.ins_back(a);
     }
-    l.bubblesort();
+    l.selectsort();
     l.print();
     return 0;
 }

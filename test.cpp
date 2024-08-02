@@ -1,22 +1,19 @@
 #include<bits/stdc++.h>
-#include"sllist.hpp"
-#include"dllist.hpp"
+#include<iostream>
+#include<random>
+#include<ctime>
 #define _for(i,a,b) for(int i = a; i <= b; i++)
 #define _rfor(i,a,b) for(int i=a; i>=b; i--)
 using namespace std;
-using namespace List;
+default_random_engine e;
+bernoulli_distribution u(0.5); // 随机结果为（0或）1的概率（各）为0.5
+void rrand()
+{
+    cout<<u(e)<<' ';
+}
 int main()
 {
-    dllist<int> l;
-    int n;
-    cin>>n;
-    _for(i,1,n)
-    {
-        int a;
-        cin>>a;
-        l.ins_back(a);
-    }
-    l.selectsort();
-    l.print();
+    e.seed(time(0));
+	_for(i,1,10) rrand();
     return 0;
 }

@@ -7,7 +7,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "-std=c++11",
+                "-std=c++14",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
@@ -31,7 +31,7 @@
             //"command": "D:\\MinGW64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
-                "-std=c++11",
+                "-std=c++14",
                 "-O2",
                 "${file}",
                 "-o",

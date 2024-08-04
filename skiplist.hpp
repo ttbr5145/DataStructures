@@ -99,6 +99,10 @@ namespace List
 
                 insert(maxlevel, newlevel, NULL, head[maxlevel], tail[maxlevel], val);
             }
+            Node* find(Data val)
+            {
+                return find(maxlevel, head[maxlevel], tail[maxlevel], val);
+            }
 
             void print()
             {
@@ -126,37 +130,57 @@ namespace List
                 }
             }
             
-            Node* add(Node* left, Node* right, Node* father, Data val) // 在left和right之间插入一个结点，其父结点为fa
+            Node* add(Node* left, Node* right, Node* father, Data val, int lev) // 在left和right之间插入一个结点，其父结点为fa
             {
                 Node* node =
                 left->next = new Node(val, left, right, father, NULL);
                 right->prev = node;
                 if (father != NULL) father->child = node;
+                node->level = lev;
                 return node;
             }
 
             void insert(int nowlevel, int datalevel, Node* fa, Node* head, Node* tail, Data val)
             {
-                printf("insert %d at level %d, now at level %d\n", val, datalevel, nowlevel);
                 Node *left = head, *right = tail;
-                while (left->next->value < val && left->next != right){printf("left goes once\n");left = left->next;}// printf("left end\n");
-                while (right->prev->value > val && right->prev != left){printf("right goes once\n");right = right->prev;}// printf("right end\n");
+                while (left->next->value < val) left = left->next;
+                while (right->prev->value > val) right = right->prev;
 
                 Node* tempfa;
                 if (left->next == right)
                 {
                     tempfa = NULL;                          //情况1，此level无数据，不在此level插入数据
                     if (nowlevel <= datalevel)
-                        tempfa = add(left, right, fa, val); //情况2，此level无数据，在此level插入数据
+                        tempfa = add(left, right, fa, val, nowlevel); //情况2，此level无数据，在此level插入数据
                 }
-                else            //左右指针重合，均指在val处，说明此level已有数据
+                else            //左右指针夹在val两侧，说明此level已有数据
                 {
-                    // left->times++;
-                    tempfa = left;                          //情况3，此level已有数据
+                    Node* node = left->next;
+                    // node->times++;
+                    tempfa = node;                          //情况3，此level已有数据
                 }
 
                 if (nowlevel > 0)
                         insert(nowlevel - 1, datalevel, tempfa, left->child, right->child, val);
+            }
+            Node* find(int level, Node* head, Node* tail, Data val)
+            {
+                Node *left = head, *right = tail;
+                while (left->next->value < val) left = left->next;
+                while (right->prev->value > val) right = right->prev;
+
+                if (left->next == right)
+                {
+                    if (level > 0)
+                        return find(level - 1, left->child, right->child, val);
+                    else
+                        return NULL;
+                }
+                else
+                {
+                    Node* node = left->next;
+                    return node;
+                }
             }
     };
 }

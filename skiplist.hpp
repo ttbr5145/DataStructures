@@ -52,7 +52,7 @@ namespace List
             {
                 length = 0;
                 maxlevel = 0;
-                _for(i, 0, MAXN)
+                _for(i, 0, MAXN - 1)
                 {
                     head[i] = new Node(0);
                     tail[i] = new Node(0);
@@ -139,15 +139,26 @@ namespace List
             
             Node* insert(int level, Node* fa, Node* head, Node* tail, Data val)
             {
+                printf("insert %d at level %d\n", val, level);
                 Node *left = head, *right = tail;
-                while (left->value < val) left = left->next;
-                while (right->value > val) right = right->prev;
+                while (left->value < val && left->next != right)
+                {
+                    printf("left goes once\n");
+                    left = left->next;
+                }
+                printf("left end\n");
+                while (right->value > val && right->prev != left)
+                {
+                    printf("right goes once\n");
+                    right = right->prev;
+                }
+                printf("right end\n");
                 if (left->next == right)
                 {
-                    Node *node = left->next = new Node(val, left->child, right->child, fa, NULL);
+                    Node *node = left->next = new Node(val, left, right, fa, NULL);
                     right->prev = node;
                     if (level > 0)
-                        node->child = insert(level - 1, node, left, right, val);
+                        node->child = insert(level - 1, node, left->child, right->child, val);
                     else
                         node->child = NULL;
                     return node;
@@ -155,15 +166,15 @@ namespace List
                 else//左右指针重合，均指在val处
                 {
                     //left->times++;
-                    insert(level - 1, left, left, right, val);
+                    insert(level - 1, left, left->child, right->child, val);
                     return left;
                 }
             }
             Node* find(int level, Node* head, Node* tail, int val)
             {
                 Node *left = head, *right = tail;
-                while (left->value < val) left = left->next;
-                while (right->value > val) right = right->prev;
+                while (left->value < val && left != right) left = left->next;
+                while (right->value > val && right != left) right = right->prev;
                 if (left->next == right)
                 {
                     if(level > 0)
@@ -176,7 +187,5 @@ namespace List
                     return left;
                 }
             }
-            void mov_after(Node* node);
-            void mov_before(Node* node);
     };
 }

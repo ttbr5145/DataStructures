@@ -9,9 +9,7 @@ int main()
     skiplist<int> sl;
     _for(i,1,10)
     {
-        int a;
-        cin>>a;
-        sl.insert(a);
+        sl.insert(i);
     }
     sl.print();
     return 0;

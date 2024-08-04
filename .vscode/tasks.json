@@ -1,0 +1,54 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "g++ debug",
+            "command": "D:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-std=c++14",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "调试器生成的任务。"
+        },
+        {
+            "type": "cppbuild",
+            "label": "g++ release",
+            "command": "D:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
+            //"command": "D:\\MinGW64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-std=c++14",
+                "-O2",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "调试器生成的任务。"
+        }
+    ],
+    "version": "2.0.0"
+}

@@ -4,7 +4,8 @@
 #define _for(i,a,b) for(int i = a; i <= b; i++)
 #define _rfor(i,a,b) for(int i=a; i>=b; i--)
 using namespace std;
-namespace List{
+namespace List
+{
     template <class Data>
     class sllist                                  //单向链表，左闭右开，最末项为(0，NULL)无效项
     {

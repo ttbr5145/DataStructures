@@ -4,9 +4,10 @@
 #define _for(i,a,b) for(int i = a; i <= b; i++)
 #define _rfor(i,a,b) for(int i=a; i>=b; i--)
 using namespace std;
-namespace List{
+namespace List
+{
     template <class Data>
-    class dllist
+    class dllist           //双向链表
     {
         public:
             class Node

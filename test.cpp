@@ -7,9 +7,13 @@ using namespace List;
 int main()
 {
     skiplist<int> sl;
-    _for(i,1,10)
+    int n;
+    cin>>n;
+    _for(i,1,n)
     {
-        sl.insert(i);
+        int data;
+        cin>>data;
+        sl.insert(data);
     }
     sl.print();
     return 0;

@@ -14,7 +14,7 @@ namespace List
     //用于生成随机数
 	default_random_engine rd;
     bernoulli_distribution dist(0.5);// 生成1的概率为0.5
-    const int MAXN = 20010;
+    const int MAXN = 20010, INF = 0x3f3f3f3f;
 
     template <class Data>
     class skiplist
@@ -54,8 +54,8 @@ namespace List
                 maxlevel = 0;
                 _for(i, 0, MAXN - 1)
                 {
-                    head[i] = new Node(0);
-                    tail[i] = new Node(0);
+                    head[i] = new Node(-INF);
+                    tail[i] = new Node(INF);
                     head[i]->next = tail[i];
                     tail[i]->prev = head[i];
                 }
@@ -82,7 +82,7 @@ namespace List
                 rd.seed(time(0));
             }*/
 
-            int randlevel()//获取随机层数
+            int randlevel()//获取随机层数，该值小于等于当前的maxlevel + 1
             {
                 return randlevel(0);
             }
@@ -90,23 +90,16 @@ namespace List
             void insert(Data val)//插入数据
             {
                 int newlevel = randlevel();
-                if (newlevel > maxlevel)
+                if (newlevel > maxlevel)  //动态初始化，初始化第 maxlevel + 1 层
                 {
-                    newlevel = maxlevel + 1;
-                    head[maxlevel + 1]->child = head[maxlevel];
-                    head[maxlevel]->father = head[maxlevel + 1];
-                    tail[maxlevel +1]->child = tail[maxlevel];
-                    tail[maxlevel]->father = tail[maxlevel];
-                    maxlevel++;
+                    ++maxlevel;
+                    head[maxlevel]->child = head[maxlevel - 1], head[maxlevel - 1]->father = head[maxlevel];
+                    tail[maxlevel]->child = tail[maxlevel - 1], tail[maxlevel - 1]->father = tail[maxlevel];
                 }
-                insert(newlevel, NULL, head[newlevel], tail[newlevel], val);
+
+                insert(maxlevel, newlevel, NULL, head[maxlevel], tail[maxlevel], val);
             }
-            Node* find(Data val)//搜索数据（最高层）
-            {
-                return find(maxlevel, head[maxlevel], tail[maxlevel], val);
-            }
-            void del(Data val);
-            
+
             void print()
             {
                 int nowlevel = maxlevel;
@@ -119,17 +112,13 @@ namespace List
                 }
             }
         private:
-            bool rand()//随机生成0或1
-            {
-                return dist(rd);
-            }
             int randlevel(int level)//获得随机层数，底层
             {
                 if (level > maxlevel)
                     return level;
                 else
                 {
-                    bool r = rand();
+                    bool r = dist(rd);
                     if (r)
                         return randlevel(level + 1);
                     else
@@ -137,55 +126,37 @@ namespace List
                 }
             }
             
-            Node* insert(int level, Node* fa, Node* head, Node* tail, Data val)
+            Node* add(Node* left, Node* right, Node* father, Data val) // 在left和right之间插入一个结点，其父结点为fa
             {
-                printf("insert %d at level %d\n", val, level);
-                Node *left = head, *right = tail;
-                while (left->value < val && left->next != right)
-                {
-                    printf("left goes once\n");
-                    left = left->next;
-                }
-                printf("left end\n");
-                while (right->value > val && right->prev != left)
-                {
-                    printf("right goes once\n");
-                    right = right->prev;
-                }
-                printf("right end\n");
-                if (left->next == right)
-                {
-                    Node *node = left->next = new Node(val, left, right, fa, NULL);
-                    right->prev = node;
-                    if (level > 0)
-                        node->child = insert(level - 1, node, left->child, right->child, val);
-                    else
-                        node->child = NULL;
-                    return node;
-                }
-                else//左右指针重合，均指在val处
-                {
-                    //left->times++;
-                    insert(level - 1, left, left->child, right->child, val);
-                    return left;
-                }
+                Node* node =
+                left->next = new Node(val, left, right, father, NULL);
+                right->prev = node;
+                if (father != NULL) father->child = node;
+                return node;
             }
-            Node* find(int level, Node* head, Node* tail, int val)
+
+            void insert(int nowlevel, int datalevel, Node* fa, Node* head, Node* tail, Data val)
             {
+                printf("insert %d at level %d, now at level %d\n", val, datalevel, nowlevel);
                 Node *left = head, *right = tail;
-                while (left->value < val && left != right) left = left->next;
-                while (right->value > val && right != left) right = right->prev;
+                while (left->next->value < val && left->next != right){printf("left goes once\n");left = left->next;}// printf("left end\n");
+                while (right->prev->value > val && right->prev != left){printf("right goes once\n");right = right->prev;}// printf("right end\n");
+
+                Node* tempfa;
                 if (left->next == right)
                 {
-                    if(level > 0)
-                        return find(level - 1, left->child, right->child);
-                    else
-                        return NULL;
+                    tempfa = NULL;                          //情况1，此level无数据，不在此level插入数据
+                    if (nowlevel <= datalevel)
+                        tempfa = add(left, right, fa, val); //情况2，此level无数据，在此level插入数据
                 }
-                else
+                else            //左右指针重合，均指在val处，说明此level已有数据
                 {
-                    return left;
+                    // left->times++;
+                    tempfa = left;                          //情况3，此level已有数据
                 }
+
+                if (nowlevel > 0)
+                        insert(nowlevel - 1, datalevel, tempfa, left->child, right->child, val);
             }
     };
 }

@@ -58,35 +58,17 @@ namespace List
                     tail[i] = new Node(INF);
                     head[i]->next = tail[i];
                     tail[i]->prev = head[i];
+                    head[i]->level = tail[i]->level = i;
                 }
 
                 //初始化随机数
                 rd.seed(time(0));
             }
-            /*skiplist(Data val)
-            {
-                length = 1;
-                maxlevel = 0;
-                _for(i, 0, MAXN)
-                {
-                    head[i] = new Node(0)
-                    tail[i] = new Node(0);
-                    head[i]->next = tail[i];
-                    tail[i]->prev = head[i];
-                }
-                head[0]->next = new Node(val);
-                head[0]->next->next = tail[0], tail[0]->prev = head[0]->next;
-                head[0]->next->prev = head[0];
-
-                //初始化随机数
-                rd.seed(time(0));
-            }*/
 
             int randlevel()//获取随机层数，该值小于等于当前的maxlevel + 1
             {
                 return randlevel(0);
             }
-
             void insert(Data val)//插入数据
             {
                 int newlevel = randlevel();
@@ -97,11 +79,26 @@ namespace List
                     tail[maxlevel]->child = tail[maxlevel - 1], tail[maxlevel - 1]->father = tail[maxlevel];
                 }
 
-                insert(maxlevel, newlevel, NULL, head[maxlevel], tail[maxlevel], val);
+                insert(NULL, head[maxlevel], tail[maxlevel], newlevel, val);
             }
             Node* find(Data val)
             {
                 return find(maxlevel, head[maxlevel], tail[maxlevel], val);
+            }
+            void del(Node* node)
+            {
+                if (node == NULL) return;
+                del(node->child);
+                node->prev->next = node->next;
+                node->next->prev = node->prev;
+
+                int level = node->level;
+                if (node->prev == head[level] && node->next == tail[level]) maxlevel--;
+                delete node;                      //释放内存
+            }
+            void del(int val)
+            {
+                del(find(val));
             }
 
             void print()
@@ -129,19 +126,18 @@ namespace List
                         return level;
                 }
             }
-            
             Node* add(Node* left, Node* right, Node* father, Data val, int lev) // 在left和right之间插入一个结点，其父结点为fa
             {
                 Node* node =
-                left->next = new Node(val, left, right, father, NULL);
+                left->next = new Node(val, left, right, NULL, father);
                 right->prev = node;
                 if (father != NULL) father->child = node;
                 node->level = lev;
                 return node;
             }
-
-            void insert(int nowlevel, int datalevel, Node* fa, Node* head, Node* tail, Data val)
+            void insert(Node* fa, Node* head, Node* tail, int level, Data val)
             {
+                int nowlevel = head->level;
                 Node *left = head, *right = tail;
                 while (left->next->value < val) left = left->next;
                 while (right->prev->value > val) right = right->prev;
@@ -150,7 +146,7 @@ namespace List
                 if (left->next == right)
                 {
                     tempfa = NULL;                          //情况1，此level无数据，不在此level插入数据
-                    if (nowlevel <= datalevel)
+                    if (nowlevel <= level)
                         tempfa = add(left, right, fa, val, nowlevel); //情况2，此level无数据，在此level插入数据
                 }
                 else            //左右指针夹在val两侧，说明此level已有数据
@@ -161,7 +157,7 @@ namespace List
                 }
 
                 if (nowlevel > 0)
-                        insert(nowlevel - 1, datalevel, tempfa, left->child, right->child, val);
+                        insert(tempfa, left->child, right->child, level, val);
             }
             Node* find(int level, Node* head, Node* tail, Data val)
             {

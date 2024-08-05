@@ -19,12 +19,17 @@ int main()
     auto result = sl.find(3);
     if (result != NULL)
     {
-        if (result->next != NULL)
+        if (result->next != NULL && result->next->next != NULL)
             printf("3 has found, and the next is %d (at level %d)\n", result->next->value, result->level);
         else
             printf("3 has found, but there's nothing at the next (at level %d)\n", result->level);
+        
     }
     else
         cout<<"Can't find 3\n";
+    sl.del(3);
+    sl.print();
+    sl.insert(3);
+    sl.print();
     return 0;
 }

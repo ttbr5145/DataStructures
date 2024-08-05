@@ -13,7 +13,7 @@ namespace List
 {
     //用于生成随机数
 	default_random_engine rd;
-    bernoulli_distribution dist(0.5);// 生成1的概率为0.5
+    bernoulli_distribution dist(0.25);// 生成1的概率为0.25
     const int MAXN = 20010, INF = 0x3f3f3f3f;
 
     template <class Data>

@@ -65,7 +65,7 @@ namespace Tree
                 printf("back to fa\n");
                 return;
             }
-            printf("%d at %ls\n", node->value, (node->_at ? "rht" : "lft") );
+            printf("%d at %s\n", node->value, (node->_at ? "rht" : "lft") );
             print(node->lftchild);
             print(node->rgtchild);
         }

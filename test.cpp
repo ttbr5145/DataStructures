@@ -3,8 +3,6 @@
 #define _rfor(i,a,b) for(int i=a; i>=b; i--)
 using namespace std;
 
-
-
 #include"stree.hpp"
 using namespace Tree;
 

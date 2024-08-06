@@ -1,5 +1,5 @@
 {
-    "background.enabled": true,
+    "background.enabled": false,
 
     "files.encoding": "utf8",
     "files.associations": {

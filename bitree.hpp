@@ -12,39 +12,34 @@ namespace Tree
             Data value;
             Node *father, *lftchild, *rgtchild;
             bool _at;//0表示在左子树，否则在右子树
-            int degree;
+            int degree() { return (lft != nullptr) + (rgtchild != nullptr); }
             Node()
             {
                 father = lftchild = rgtchild = NULL;
-                degree = 0;
             }
             Node(Data val)
             {
                 value = val;
                 father = lftchild = rgtchild = NULL;
-                degree = 0;
             }
             Node(Data val, Node* fa)
             {
                 value = val;
                 father = fa;
                 lftchild = rgtchild = NULL;
-                degree = 0;
             }
             Node(Data val, Node* fa, Node* lft, Node* rgt)
             {
                 value = val;
                 father = fa, lftchild = lft, rgtchild = rgt;
-                degree = 0;
             }
         };
         Node* root;
-        bool insert_able(Node* fa) { return fa->degree < 2; }  //查询是否可以插入结点
+        bool insert_able(Node* fa) { return fa->degree() < 2; }  //查询是否可以插入结点
         void insert_at(Node* fa, Data val)
         {
             if (fa->lftchild == NULL) fa->lftchild = new Node(val, fa);
             else                      fa->rgtchild = new Node(val, fa);
-            fa->degree++;
         }
         void del_at(Node* root)
         {

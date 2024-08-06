@@ -3,8 +3,10 @@
         {
             "name": "Win32",
             "cppStandard": "c++11",
-            "compilerPath": "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/bin/HostX/x64/cl.exe",
-            "intelliSenseMode": "windows-msvc-x64",
+            //"compilerPath": "D:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/bin/HostX/x64/cl.exe",
+            "compilerPath": "D:/MinGW/bin/g++.exe",
+            //"intelliSenseMode": "windows-msvc-x64",
+            "intelliSenseMode": "windows-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**"
             ],

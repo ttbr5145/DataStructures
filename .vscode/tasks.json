@@ -3,7 +3,8 @@
         {
             "type": "cppbuild",
             "label": "g++ debug",
-            "command": "D:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
+            // "command": "D:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
+            "command": "D:\\MinGW\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -27,8 +28,8 @@
         {
             "type": "cppbuild",
             "label": "g++ release",
-            "command": "D:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
-            //"command": "D:\\MinGW64\\bin\\g++.exe",
+            // "command": "D:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe",
+            "command": "D:\\MinGW\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-std=c++14",

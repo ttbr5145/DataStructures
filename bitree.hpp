@@ -6,13 +6,13 @@ namespace Tree
     class bitree
     {
     public:
-        struct Node
+        class Node
         {
         public:
             Data value;
             Node *father, *lftchild, *rgtchild;
             bool _at;//0表示在左子树，否则在右子树
-            int degree() { return (lft != nullptr) + (rgtchild != nullptr); }
+            int degree() { return (lftchild != nullptr) + (rgtchild != nullptr); }
             Node()
             {
                 father = lftchild = rgtchild = NULL;
@@ -35,6 +35,8 @@ namespace Tree
             }
         };
         Node* root;
+        
+        bitree() { root = NULL; }
         bool insert_able(Node* fa) { return fa->degree() < 2; }  //查询是否可以插入结点
         void insert_at(Node* fa, Data val)
         {
@@ -50,19 +52,15 @@ namespace Tree
             else           root->father->lftchild = NULL;
             delete root;
         }
-
         void print() { print(root); }         //中序遍历输出
     private:
         void print(Node* node)
         {
-            if (node==NULL)
-            {
-                printf("back to fa\n");
-                return;
-            }
+            if (node==NULL) return;
             printf("%d at %s\n", node->value, (node->_at ? "rht" : "lft") );
             print(node->lftchild);
             print(node->rgtchild);
+            printf("back to fa\n");
         }
     };
 }

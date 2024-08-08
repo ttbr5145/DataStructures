@@ -6,8 +6,36 @@ namespace Tree
     template <class Data>
     class stree : public bitree<Data>
     {
-    using Node = typename bitree<Data>::Node;
     public:
+        using Node = typename bitree<Data>::Node;
+
+        void dex_rot(Node *&root)                       // 右旋
+        {
+            Node *ori_root = root, *new_root = root->rgtchild, *odd_node = root->rgtchild->lftchild;
+            ori_root->rgtchild = odd_node;
+            if (odd_node) 
+            {
+                odd_node->father = ori_root;
+                odd_node->_at = 1;
+            }
+            new_root->lftchild = ori_root, ori_root->father = new_root, ori_root->_at = 0;
+            new_root->father = NULL, new_root->_at = 0;
+            root = new_root;
+        }
+        void lev_rot(Node *&root)                       // 左旋
+        {
+            Node* ori_root = root, *new_root = root->lftchild, *odd_node = root->lftchild->rgtchild;
+            ori_root->lftchild = odd_node;
+            if (odd_node) 
+            {
+                odd_node->father = ori_root;
+                odd_node->_at = 0;
+            }
+            new_root->rgtchild = ori_root, ori_root->father = new_root, ori_root->_at = 1;
+            new_root->father = NULL, new_root->_at = 1;
+            root = new_root;
+        }
+
         void insert(Data val) { insert(NULL, this->root, val, 0); }
         /*
         void trans_at(Node *&node, Node *&newfa)        //转移父亲
@@ -46,32 +74,6 @@ namespace Tree
             else           node2->father->lftchild = node2;
         }
         */
-        void dex_rot()                       // 右旋
-        {
-            Node *ori_root = this->root, *new_root = this->root->rgtchild, *odd_node = this->root->rgtchild->lftchild;
-            ori_root->rgtchild = odd_node;
-            if (odd_node) 
-            {
-                odd_node->father = ori_root;
-                odd_node->_at = 1;
-            }
-            new_root->lftchild = ori_root, ori_root->father = new_root, ori_root->_at = 0;
-            new_root->father = NULL, new_root->_at = 0;
-            this->root = new_root;
-        }
-        void lev_rot()                      // 左旋
-        {
-            Node* ori_root = this->root, *new_root = this->root->lftchild, *odd_node = this->root->lftchild->rgtchild;
-            ori_root->lftchild = odd_node;
-            if (odd_node) 
-            {
-                odd_node->father = ori_root;
-                odd_node->_at = 0;
-            }
-            new_root->rgtchild = ori_root, ori_root->father = new_root, ori_root->_at = 1;
-            new_root->father = NULL, new_root->_at = 1;
-            this->root = new_root;
-        }
     private:
         void insert(Node *fa, Node *&node, Data val, bool _at) //插入
         {

@@ -19,12 +19,12 @@ namespace List
                     Node()
                     {
                         value = 0;
-                        prev = NULL, next = NULL;
+                        prev = nullptr, next = nullptr;
                     }
                     Node(Data val)
                     {
                         value = val;
-                        prev = NULL, next = NULL;
+                        prev = nullptr, next = nullptr;
                     }
                     Node(Data val, Node* pre, Node* nxt)
                     {
@@ -38,15 +38,15 @@ namespace List
             dllist()
             {
                 length = 0;
-                tail = new Node(0, NULL, NULL);
-                head = new Node(0, NULL, tail);
+                tail = new Node(0, nullptr, nullptr);
+                head = new Node(0, nullptr, tail);
                 tail->prev = head;
             }
             dllist(Data val)
             {
                 length = 1;
-                head = new Node(0, NULL, new Node(val, head, tail));
-                tail = new Node(0, head->next, NULL);
+                head = new Node(0, nullptr, new Node(val, head, tail));
+                tail = new Node(0, head->next, nullptr);
             }
 
             void ins_back(Data value)
@@ -115,7 +115,7 @@ namespace List
                 while (flag)
                 {
                     flag = false;
-                    for(Node* node = head; node->next->next != NULL; node = node->next)
+                    for(Node* node = head; node->next->next != nullptr; node = node->next)
                         if(node->value > node->next->value)
                         {
                             this->mov_after(node);
@@ -141,7 +141,7 @@ namespace List
             }
             Node* find(Node* now, Data value)     //底层
             {
-                if (now == NULL || now->value == value)
+                if (now == nullptr || now->value == value)
                     return now;
                 else
                     return find(now->next, value);
@@ -159,7 +159,7 @@ namespace List
             }
             void print(Node* node)                //底层
             {
-                if(node->next != NULL)
+                if(node->next != nullptr)
                 {
                     printf("%d ",node->value);
                     print(node->next);

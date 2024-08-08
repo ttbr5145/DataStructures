@@ -30,13 +30,13 @@ namespace List
                     {
                         value = 0;
                         level = 0;
-                        prev = NULL, next = NULL;
-                        child = NULL, father = NULL;
+                        prev = nullptr, next = nullptr;
+                        child = nullptr, father = nullptr;
                     }
                     Node(Data val)
                     {
                         value = val;
-                        prev = next = child = father = NULL;
+                        prev = next = child = father = nullptr;
                     }
                     Node(Data val, Node* pre, Node* nxt, Node* chd, Node* fa)
                     {
@@ -79,7 +79,7 @@ namespace List
                     tail[maxlevel]->child = tail[maxlevel - 1], tail[maxlevel - 1]->father = tail[maxlevel];
                 }
 
-                insert(NULL, head[maxlevel], tail[maxlevel], newlevel, val);
+                insert(nullptr, head[maxlevel], tail[maxlevel], newlevel, val);
             }
             Node* find(Data val)
             {
@@ -87,7 +87,7 @@ namespace List
             }
             void del(Node* node)
             {
-                if (node == NULL) return;
+                if (node == nullptr) return;
                 del(node->child);
                 node->prev->next = node->next;
                 node->next->prev = node->prev;
@@ -104,10 +104,10 @@ namespace List
             void print()
             {
                 int nowlevel = maxlevel;
-                for (Node* start = head[maxlevel]; start != NULL; start = start->child, nowlevel--)
+                for (Node* start = head[maxlevel]; start != nullptr; start = start->child, nowlevel--)
                 {
                     printf("level %d: ", nowlevel);
-                    for (Node* p = start->next; p->next != NULL; p = p->next)
+                    for (Node* p = start->next; p->next != nullptr; p = p->next)
                         printf("%d ",p->value);
                     printf("\n");
                 }
@@ -129,9 +129,9 @@ namespace List
             Node* add(Node* left, Node* right, Node* father, Data val, int lev) // 在left和right之间插入一个结点，其父结点为fa
             {
                 Node* node =
-                left->next = new Node(val, left, right, NULL, father);
+                left->next = new Node(val, left, right, nullptr, father);
                 right->prev = node;
-                if (father != NULL) father->child = node;
+                if (father != nullptr) father->child = node;
                 node->level = lev;
                 return node;
             }
@@ -145,7 +145,7 @@ namespace List
                 Node* tempfa;
                 if (left->next == right)
                 {
-                    tempfa = NULL;                          //情况1，此level无数据，不在此level插入数据
+                    tempfa = nullptr;                          //情况1，此level无数据，不在此level插入数据
                     if (nowlevel <= level)
                         tempfa = add(left, right, fa, val, nowlevel); //情况2，此level无数据，在此level插入数据
                 }
@@ -170,7 +170,7 @@ namespace List
                     if (level > 0)
                         return find(level - 1, left->child, right->child, val);
                     else
-                        return NULL;
+                        return nullptr;
                 }
                 else
                 {

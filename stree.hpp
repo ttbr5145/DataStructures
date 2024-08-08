@@ -19,7 +19,7 @@ namespace Tree
                 odd_node->_at = 1;
             }
             new_root->lftchild = ori_root, ori_root->father = new_root, ori_root->_at = 0;
-            new_root->father = NULL, new_root->_at = 0;
+            new_root->father = nullptr, new_root->_at = 0;
             root = new_root;
         }
         void lev_rot(Node *&root)                       // 左旋
@@ -32,21 +32,21 @@ namespace Tree
                 odd_node->_at = 0;
             }
             new_root->rgtchild = ori_root, ori_root->father = new_root, ori_root->_at = 1;
-            new_root->father = NULL, new_root->_at = 1;
+            new_root->father = nullptr, new_root->_at = 1;
             root = new_root;
         }
 
-        void insert(Data val) { insert(NULL, this->root, val, 0); }
+        void insert(Data val) { insert(nullptr, this->root, val, 0); }
         /*
         void trans_at(Node *&node, Node *&newfa)        //转移父亲
         {
-            if (node->father != NULL)
+            if (node->father != nullptr)
             {
-                if (node->_at) node->father->rgtchild = NULL;
-                else           node->father->lftchild = NULL;
+                if (node->_at) node->father->rgtchild = nullptr;
+                else           node->father->lftchild = nullptr;
             }
             node->father = newfa;
-            if (newfa != NULL)
+            if (newfa != nullptr)
             {
                 if (newfa->value > node->value)  newfa->lftchild = node;
                 else                             newfa->rgtchild = node;

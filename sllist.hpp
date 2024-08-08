@@ -18,12 +18,12 @@ namespace List
                     Node()
                     {
                         value = 0;
-                        next = NULL;
+                        next = nullptr;
                     }
                     Node(Data val)
                     {
                         value = val;
-                        next = NULL;
+                        next = nullptr;
                     }
                     Node(Data val, Node* nxt)
                     {
@@ -36,12 +36,12 @@ namespace List
             sllist()
             {
                 length = 0;
-                head = new Node(0, NULL);
+                head = new Node(0, nullptr);
             }
             sllist(Data val)
             {
                 this->length = 1;
-                this->head = new Node(val, NULL);
+                this->head = new Node(val, nullptr);
             }
 
             void ins_back(Data value)             //插入在末尾
@@ -71,10 +71,10 @@ namespace List
                 if (length <= 1)
                     return;
                 Node* now = head;
-                while (now->next->next != NULL)
+                while (now->next->next != nullptr)
                     now = now->next;
                 now->value = 0;
-                now->next = NULL;
+                now->next = nullptr;
                 length--;
             }
             void del_after(Node* node)            //从某位置后删除，未释放内存
@@ -118,7 +118,7 @@ namespace List
                 while (flag)
                 {
                     flag = false;
-                    for(Node* node = head; node->next->next != NULL; node = node->next)
+                    for(Node* node = head; node->next->next != nullptr; node = node->next)
                         if(node->value > node->next->value)
                         {
                             this->mov_after(node);
@@ -128,17 +128,17 @@ namespace List
             }
         private:
             void insert(Node* now, Data value){   //插入，底层
-                if(now->next != NULL)
+                if(now->next != nullptr)
                     insert(now->next, value);
                 else
                 {
                     now->value = value;
-                    now->next = new Node(0, NULL);
+                    now->next = new Node(0, nullptr);
                 }
             }
             Node* find(Node* now, Data value)     //查找，底层
             {
-                if (now == NULL || now->value == value)
+                if (now == nullptr || now->value == value)
                     return now;
                 else
                     return find(now->next, value);
@@ -156,7 +156,7 @@ namespace List
             }
             void print(Node* node)                //输出，底层
             {
-                if(node->next != NULL)
+                if(node->next != nullptr)
                 {
                     printf("%d ",node->value);
                     print(node->next);

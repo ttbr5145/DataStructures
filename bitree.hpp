@@ -1,5 +1,10 @@
 #include<cstdio>
 using namespace std;
+#ifdef NULL
+#undef NULL
+#endif
+#define NULL nullptr
+
 namespace Tree
 {
     template <class Data>
@@ -15,18 +20,18 @@ namespace Tree
             int degree() { return (lftchild != nullptr) + (rgtchild != nullptr); }
             Node()
             {
-                father = lftchild = rgtchild = NULL;
+                father = lftchild = rgtchild = nullptr;
             }
             Node(Data val)
             {
                 value = val;
-                father = lftchild = rgtchild = NULL;
+                father = lftchild = rgtchild = nullptr;
             }
             Node(Data val, Node* fa)
             {
                 value = val;
                 father = fa;
-                lftchild = rgtchild = NULL;
+                lftchild = rgtchild = nullptr;
             }
             Node(Data val, Node* fa, Node* lft, Node* rgt)
             {
@@ -36,27 +41,27 @@ namespace Tree
         };
         Node* root;
         
-        bitree() { root = NULL; }
+        bitree() { root = nullptr; }
         bool insert_able(Node* fa) { return fa->degree() < 2; }  //查询是否可以插入结点
         void insert_at(Node* fa, Data val)
         {
-            if (fa->lftchild == NULL) fa->lftchild = new Node(val, fa);
+            if (fa->lftchild == nullptr) fa->lftchild = new Node(val, fa);
             else                      fa->rgtchild = new Node(val, fa);
         }
         void del_at(Node* root)
         {
-            if (root == NULL) return;
-            if (root->lftchild != NULL) del(root->lftchild);
-            if (root->rgtchild != NULL) del(root->rgtchild);
-            if (root->_at) root->father->rhtchild = NULL;
-            else           root->father->lftchild = NULL;
+            if (root == nullptr) return;
+            if (root->lftchild != nullptr) del(root->lftchild);
+            if (root->rgtchild != nullptr) del(root->rgtchild);
+            if (root->_at) root->father->rhtchild = nullptr;
+            else           root->father->lftchild = nullptr;
             delete root;
         }
         void print() { print(root); }         //中序遍历输出
     private:
         void print(Node* node)
         {
-            if (node==NULL) return;
+            if (node==nullptr) return;
             printf("%d at %s\n", node->value, (node->_at ? "rht" : "lft") );
             print(node->lftchild);
             print(node->rgtchild);

@@ -7,7 +7,7 @@ namespace Tree
     const int MAXN = 20010;
     //用于生成随机数
 	default_random_engine rd;
-    uniform_int_distribution<int> dist(0, MAXN);// 生成随机数
+    uniform_int_distribution<int> dist(0, MAXN);
 
     template <class Data>
     class Info

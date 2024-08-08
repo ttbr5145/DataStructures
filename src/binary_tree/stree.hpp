@@ -11,7 +11,10 @@ namespace Tree
 
         void dex_rot(Node *&root)                       // 右旋
         {
-            Node *ori_root = root, *new_root = root->rgtchild, *odd_node = root->rgtchild->lftchild;
+            if (!root) return;
+            Node *ori_root = root, *new_root = root->rgtchild,
+            *odd_node = odd_node = new_root->lftchild;
+
             ori_root->rgtchild = odd_node;
             if (odd_node) 
             {
@@ -24,7 +27,9 @@ namespace Tree
         }
         void lev_rot(Node *&root)                       // 左旋
         {
-            Node* ori_root = root, *new_root = root->lftchild, *odd_node = root->lftchild->rgtchild;
+            Node *ori_root = root, *new_root = root->lftchild,
+            *odd_node = new_root->rgtchild;
+
             ori_root->lftchild = odd_node;
             if (odd_node) 
             {

@@ -4,7 +4,7 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-		{
+		{                     // Launch Only
 			"name": "Launch Only",
 			"type": "cppdbg",
 			"request": "launch",
@@ -18,12 +18,12 @@
                 "&",
                 "echo.",
                 "&",
-                "pause"//没起作用
+                "pause"
 			],
 			"cwd": "${fileDirname}",
-			"externalConsole": true//这句
+			"externalConsole": true
 		},
-		{
+		{                     // Release
 			"name": "Release",
 			"preLaunchTask": "g++ release",
 			"type": "cppdbg",
@@ -38,31 +38,32 @@
                 "&",
                 "echo.",
                 "&",
-                "pause"//没起作用
+                "pause"
 			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			"environment": [],
 			"externalConsole": true//这句
 		},
-		{
+		{                     // Debug
 			"name": "Debug",
 			"preLaunchTask": "g++ debug",
 			"type": "cppdbg",
 			"request": "launch",
-			//"program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-			//"args": [],
+			"program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+			"args": [],
 			
-			"program": "C:\\Windows\\System32\\cmd.exe",
 			//"program": "D:\\PowerShell\\7.4.3\\pwsh.exe",
-			"args": [
-				"/C",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "&",
-                "echo.",
-                "&",
-                "pause"
-			],
+
+			// "program": "C:\\Windows\\System32\\cmd.exe",
+			// "args": [
+			// 	   "/C",
+            //     "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            //     "&",
+            //     "echo.",
+            //     "&",
+            //     "pause"
+			// ],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
 			//"cwd": "${workspaceFolder}",

@@ -1,14 +1,8 @@
-#include<stdio.h>
-#include<algorithm>
-
 #include<random>
 #include<ctime>
 
 #include"dllist.hpp"
-#define _for(i,a,b) for(int i = a; i <= b; i++)
-#define _rfor(i,a,b) for(int i=a; i>=b; i--)
-using namespace std;
-using namespace List;
+
 namespace List
 {
     //用于生成随机数
@@ -52,7 +46,7 @@ namespace List
             {
                 length = 0;
                 maxlevel = 0;
-                _for(i, 0, MAXN - 1)
+                for(int i = 0; i < MAXN; i++)
                 {
                     head[i] = new Node(-INF);
                     tail[i] = new Node(INF);

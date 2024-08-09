@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include<iostream>
 #define _for(i,a,b) for(int i = a; i <= b; i++)
 #define _rfor(i,a,b) for(int i = a; i >= b; i--)
 using namespace std;

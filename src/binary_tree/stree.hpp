@@ -1,5 +1,4 @@
 #include "bitree.hpp"
-using namespace Tree;
 
 namespace Tree
 {

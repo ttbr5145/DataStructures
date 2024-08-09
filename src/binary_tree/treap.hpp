@@ -1,6 +1,6 @@
 #include<random>
+#include<ctime>
 #include"stree.hpp"
-using namespace Tree;
 
 namespace Tree
 {

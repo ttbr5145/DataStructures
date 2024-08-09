@@ -45,15 +45,21 @@ namespace Tree
             {
                 node = new Node(val, fa);
                 node->_at = _at;
-                rot(fa, node);
+                adj(fa, node);
                 return;
             }
             if (node->value < val)
+            {
                 insert(node, node->rgtchild, val, 1);
+                adj(fa, node);
+            }
             else
+            {
                 insert(node, node->lftchild, val, 0);
+                adj(fa, node);
+            }
         }
-        void rot(Node *&fa, Node *&node)            //通过旋转调整Treap
+        void adj(Node *&fa, Node *node)            //通过旋转调整Treap
         {
             if (!fa) return;
 
@@ -62,8 +68,6 @@ namespace Tree
                 Node* root = fa;
                 if (node->_at) this->dex_rot(fa);
                 else           this->lev_rot(fa);
-
-                rot(fa->father, fa);
             }
         }
         

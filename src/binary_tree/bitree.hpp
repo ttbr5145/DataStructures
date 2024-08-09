@@ -13,9 +13,10 @@ namespace Tree
         {
         public:
             Data value;
-            Node *father=nullptr, *lftchild=nullptr, *rgtchild=nullptr;
+            Node *father = nullptr, *lftchild = nullptr, *rgtchild = nullptr;
             bool _at;//0表示在左子树，否则在右子树
             int degree() { return (lftchild != nullptr) + (rgtchild != nullptr); }
+
             Node() {}
             Node(Data val) : value(val)
             {}
@@ -26,18 +27,17 @@ namespace Tree
               : value(val), father(fa), lftchild(lft), rgtchild(rgt)
             {}
         };
-        Node* root;
-        
-        bitree() { root = nullptr; }
+        Node* root = nullptr;
+
         bool insert_able(Node* fa) { return fa->degree() < 2; }  //查询是否可以插入结点
-        void insert_at(Node* fa, Data val)
+        void insert(Node* fa, Data val)
         {
             if (!fa->lftchild)
                 fa->lftchild = new Node(val, fa);
             else
                 fa->rgtchild = new Node(val, fa);
         }
-        void del_at(Node* root)
+        void del(Node* root)
         {
             if (!root) return;
             if (root->lftchild)
@@ -50,6 +50,7 @@ namespace Tree
                 root->father->lftchild = nullptr;
             delete root;
         }
+        
         void print() { print(root); }         //中序遍历输出
     private:
         void print(Node* node)

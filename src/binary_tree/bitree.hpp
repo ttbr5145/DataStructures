@@ -37,15 +37,15 @@ namespace Tree
             else
                 fa->rgtchild = new Node(val, fa);
         }
-        void del(Node* root)
+        void del_at(Node* root)
         {
             if (!root) return;
             if (root->lftchild)
-                del(root->lftchild);
+                del_at(root->lftchild);
             if (root->rgtchild)
-                del(root->rgtchild);
+                del_at(root->rgtchild);
             if (root->_at)
-                root->father->rhtchild = nullptr;
+                root->father->rgtchild = nullptr;
             else
                 root->father->lftchild = nullptr;
             delete root;

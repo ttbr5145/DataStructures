@@ -13,5 +13,10 @@ int main()
     _for(i,0,9)
         treap.insert(a[i]);
     treap.print();
+    if (treap.find(3)) cout<<"3 has been found.\n";
+    else cout<<"can't find 3\n";
+    treap.del(3);
+    if (treap.find(3)) cout<<"3 has been found.\n";
+    else cout<<"can't find 3\n";
     return 0;
 }

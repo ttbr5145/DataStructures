@@ -37,7 +37,48 @@ namespace Tree
             Node* null = nullptr;
             insert(null, this->root, {val, dist(rd)}, 0);
         }
-        void print() { print(this->root); }         //中序遍历输出
+        Node *find(Data val) { return find(val, this->root); }
+        void del(Node *node)
+        {
+            switch (node->degree())
+            {
+            case 0:
+                this->del_at(node);
+                break;
+            case 1:
+                if (node->lftchild)
+                {
+                    this->lev_rot(node);
+                    this->del_at(node->rgtchild);
+                }
+                else
+                {
+                    this->dex_rot(node);
+                    this->del_at(node->lftchild);
+                }
+            case 2:
+                if (node->lftchild->value.pri < node->rgtchild->value.pri)
+                {
+                    this->lev_rot(node);
+                    node->rgtchild = node->rgtchild->rgtchild;
+                    delete node->rgtchild->father;
+                    node->rgtchild->father = node;
+                }
+                else
+                {
+                    this->dex_rot(node);
+                    node->lftchild = node->lftchild->lftchild;
+                    delete node->lftchild->father;
+                    node->lftchild->father = node;
+                }
+            }
+        }
+        void del(Data val)
+        {
+            del(find(val));
+        }
+
+        void print() { print(this->root); }        //中序遍历输出
     private:
         void insert(Node *&fa, Node *&node, Type val, bool _at)       //递归插入结点
         {
@@ -70,7 +111,17 @@ namespace Tree
                 else           this->lev_rot(fa);
             }
         }
-        
+        Node *find(Data val, Node* node)
+        {
+            if (!node)
+            {
+                return nullptr;
+            }
+            else if (val < node->value.val) return find(val, node->lftchild);
+            else if (val > node->value.val) return find(val, node->rgtchild);
+            else return node;
+        }
+
         void print(Node* node)
         {
             if (!node)
